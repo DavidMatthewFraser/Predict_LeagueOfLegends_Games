@@ -1,7 +1,8 @@
 import requests
 import time
 
-api_key = 'RGAPI-2107523f-f5b9-4d3a-9c9b-2c427008f1a2'
+api_key = 'your api key'
+
 SUMMONER_V4 = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
 LEAGUE_V4 = 'https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/'
 
