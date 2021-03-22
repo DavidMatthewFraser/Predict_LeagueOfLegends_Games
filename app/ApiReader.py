@@ -20,7 +20,11 @@ class ApiReader:
     def get_MATCH_V4(match_id, api_key):
         MATCH_V4 = 'https://na1.api.riotgames.com/lol/match/v4/matches/'
         return requests.get(MATCH_V4 + str(match_id) + "?api_key=" + api_key).json()
+    def get_CHAMPION_MASTERY_V4(summoner_id, champion_id, api_key):
+        CHAMPION_MASTERY_V4 = 'https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
+        return requests.get(CHAMPION_MASTERY_V4 + str(summoner_id) +'/by-champion/' + str(champion_id) + "?api_key=" + api_key).json()
 
+reader = ApiReader
     # def format_response(json):
     #     for key,value in json.items():
     #         print(str(key) + ': ' + str(value))
