@@ -1,3 +1,9 @@
-from Game import Game
-g = Game('1234')
-print(g.getMasteryDiff(), g.getRankDiff(), g.getWinrateDiff())
+from Player import Player
+
+p = Player('ancientdengdeng')
+print(p.getMastery(121))
+print(p.getRank())
+print(p.getWinrate())
+
+
+
