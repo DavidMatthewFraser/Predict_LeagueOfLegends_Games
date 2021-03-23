@@ -1,25 +1,45 @@
+from ApiReader import reader
+from Player import Player
+import apiKey
 class Game:
     def __init__(self, gameId):
         self.gameId = gameId
+        self.gameData =  reader.get_MATCH_V4(gameId, apiKey.key)
+        self.players = []
         self.__initPlayers()
         self.__calcMastery()
         self.__calcRank()
         self.__calcWinrate()
-    # read game data and calculate mastery, rank, winrate 
+        self.__calcResult()
     def __initPlayers(self):
-        print('initPlayers')
+        for p in self.gameData['participantIdentities']:
+            newPlayer = Player(p['player']['summonerId'])
+            self.players.append([newPlayer, 'champion they played'])
+        for i in range(10):
+            self.players[i][1] = self.gameData['participants'][i]['championId']
     def __calcMastery(self):
-        print('calcMastery')
-        self.masteryDiff = 1
+        md = 0
+        for i in range(0,5):
+            md += self.players[i][0].getMastery(self.players[i][1])
+        for i in range(5,10):
+            md -= self.players[i][0].getMastery(self.players[i][1])
+        self.masteryDiff = md
     def __calcRank(self):
-        print('calcRank')
-        self.rankDiff = 2
+        rd = 0
+        for i in range(0,5):
+            rd += self.players[i][0].getRank()
+        for i in range(5,10):
+            rd -= self.players[i][0].getRank()
+        self.rankDiff = rd 
     def __calcWinrate(self):
-        print('calcWinrate')
-        self.winrateDiff = 3
+        wd = 0
+        for i in range(0,5):
+            wd += self.players[i][0].getWinrate()
+        for i in range(5,10):
+            wd -= self.players[i][0].getWinrate()
+        self.winrateDiff = wd
     def __calcResult(self):
-        self.didWin = true;
-    # getters for mastery, rank, wiratte, game result
+        self.didWin = self.gameData['teams'][0]['win'] == 'Win'
     def getMasteryDiff(self):
         return self.masteryDiff
     def getRankDiff(self):
@@ -28,4 +48,3 @@ class Game:
         return self.winrateDiff
     def getResult(self):
         return self.didWin
-    

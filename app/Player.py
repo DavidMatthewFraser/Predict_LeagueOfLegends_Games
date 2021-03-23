@@ -1,10 +1,10 @@
 import apiKey
 from ApiReader import reader
 class Player:
-    def __init__(self, name):
-        self.name=name
-        response = reader.get_SUMMONER_V4(self.name, apiKey.key)
-        self.id = response['id'] 
+    def __init__(self, id):
+        response = reader.get_SUMMONER_BYID_V4(id, apiKey.key)
+        self.name = response['name']
+        self.id = id
         self.accountId = response['accountId'] 
     def getMastery(self, championId):
         return reader.get_CHAMPION_MASTERY_V4(self.id, championId, apiKey.key)['championPoints']
@@ -22,8 +22,8 @@ class Player:
     def getWinrate(self):
         games = reader.get_MATCHES_V4(self.accountId, apiKey.key)
         gameIds = []
-        # toDo: change range from 1 to 10 so that the last game some1 played doesn't count twoards their stats
-        for i in range(10):
+        sampleSize = 4
+        for i in range(1, sampleSize):
             gameIds.append(games['matches'][i]['gameId'])
         wins = 0
         for game in gameIds:
@@ -37,4 +37,4 @@ class Player:
                     else:
                         if not didWin:
                             wins += 1
-        return wins/10
+        return wins/sampleSize

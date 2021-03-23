@@ -8,6 +8,10 @@ class ApiReader:
     def get_SUMMONER_V4(name, api_key):
         SUMMONER_V4 = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
         return requests.get(SUMMONER_V4 + name + "?api_key=" + api_key).json()
+    
+    def get_SUMMONER_BYID_V4(id, api_key):
+        SUMMONER_V4 = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/'
+        return requests.get(SUMMONER_V4 + id + "?api_key=" + api_key).json()
 
     def get_LEAGUE_V4(tier, division, page, api_key):
         LEAGUE_V4 = 'https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/'
