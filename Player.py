@@ -1,13 +1,16 @@
 import apiKey
 from ApiReader import reader
+
 class Player:
     def __init__(self, id):
         response = reader.get_SUMMONER_BYID_V4(id, apiKey.key)
         self.name = response['name']
         self.id = id
         self.accountId = response['accountId'] 
+
     def getMastery(self, championId):
         return reader.get_CHAMPION_MASTERY_V4(self.id, championId, apiKey.key)['championPoints']
+
     def getRank(self):
         response = reader.get_SUMMONER_LEAGUE_V4(self.id, apiKey.key)
         tiers = {'DIAMOND' : 6, 'PLATINUM': 5, 'GOLD': 4, 'SILVER': 3, 'BRONZE': 2, 'IRON': 1}
@@ -19,6 +22,7 @@ class Player:
             lp = queueType['leaguePoints']
             rank = max(rank, tiers[tier] + divisions[division] + (lp * (1/5) / 100))
         return rank
+
     def getWinrate(self):
         games = reader.get_MATCHES_V4(self.accountId, apiKey.key)
         gameIds = []

@@ -1,10 +1,6 @@
-# tiers = ['DIAMOND', 'PLATINUM', 'GOLD', 'SILVER', 'BRONZE', 'IRON']
-# divisions = ['I', 'II', 'III', 'IV']
-
 import requests
 
 class ApiReader:
-    # API Request Functions
     def get_SUMMONER_V4(name, api_key):
         SUMMONER_V4 = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
         return requests.get(SUMMONER_V4 + name + "?api_key=" + api_key).json()
@@ -34,6 +30,3 @@ class ApiReader:
         return requests.get(CHAMPION_MASTERY_V4 + str(summoner_id) +'/by-champion/' + str(champion_id) + "?api_key=" + api_key).json()
 
 reader = ApiReader
-    # def format_response(json):
-    #     for key,value in json.items():
-    #         print(str(key) + ': ' + str(value))
