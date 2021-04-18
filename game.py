@@ -10,7 +10,7 @@ class Game:
         self.__initPlayers()
         self.__calcMastery()
         self.__calcRank()
-        self.__calcWinrate()
+        # self.__calcWinrate()
         self.__calcResult()
 
     def __initPlayers(self):
@@ -36,16 +36,17 @@ class Game:
             rd -= self.players[i][0].getRank()
         self.rankDiff = rd 
 
-    def __calcWinrate(self):
-        wd = 0
-        for i in range(0,5):
-            wd += self.players[i][0].getWinrate()
-        for i in range(5,10):
-            wd -= self.players[i][0].getWinrate()
-        self.winrateDiff = wd
-
     def __calcResult(self):
         self.didWin = self.gameData['teams'][0]['win'] == 'Win'
+
+# calculating winrate uses too many api requests
+#    def __calcWinrate(self):
+#        wd = 0
+#        for i in range(0,5):
+#            wd += self.players[i][0].getWinrate()
+#        for i in range(5,10):
+#            wd -= self.players[i][0].getWinrate()
+#        self.winrateDiff = wd
 
     def getMasteryDiff(self):
         return self.masteryDiff
@@ -53,8 +54,9 @@ class Game:
     def getRankDiff(self):
         return self.rankDiff
 
-    def getWinrateDiff(self):
-        return self.winrateDiff
-
     def getResult(self):
         return self.didWin
+
+#    def getWinrateDiff(self):
+#        return self.winrateDiff
+

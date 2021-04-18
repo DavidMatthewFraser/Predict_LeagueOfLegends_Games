@@ -20,9 +20,10 @@ class Player:
             tier = queueType['tier']
             division = queueType['rank']
             lp = queueType['leaguePoints']
-            rank = max(rank, tiers[tier] + divisions[division] + (lp * (1/5) / 100))
+            rank = max(rank, tiers[tier] + divisions[division])# + (lp * (1/5) / 100))
         return rank
-
+# Too many API requests for now: sampleSize * 10 * number of games
+'''
     def getWinrate(self):
         games = reader.get_MATCHES_V4(self.accountId, apiKey.key)
         gameIds = []
@@ -42,3 +43,4 @@ class Player:
                         if not didWin:
                             wins += 1
         return wins/sampleSize
+'''
