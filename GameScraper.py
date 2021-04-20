@@ -11,9 +11,14 @@ class GameScraper:
             # for each player, put their last game played in the games set    
             for i in range(numberOfGames):
                 # ith player from the top of the list
-                summoner = response[i]['summonerName']
-                accountId = reader.get_SUMMONER_V4(summoner, apiKey.key)['accountId']
-                match = reader.get_MATCHES_V4(accountId, apiKey.key)
-                # last game that player played
-                games.append(match['matches'][0]['gameId'])
+                try:
+                    summoner = response[i]['summonerName']
+                    accountId = reader.get_SUMMONER_V4(summoner, apiKey.key)['accountId']
+                    match = reader.get_MATCHES_V4(accountId, apiKey.key)
+                    for j in range(10):
+                        # last game that player played
+                        games.append(match['matches'][j]['gameId'])
+                    print('10 games scrapped')
+                except:
+                    continue;
             return games
