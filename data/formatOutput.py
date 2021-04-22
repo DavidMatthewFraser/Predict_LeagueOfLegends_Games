@@ -1,4 +1,4 @@
-f = open('sample2.csv')
+f = open('sample3/sample3.csv')
 l = f.readlines()
 print('mastery,rank,result')
 for line in l:
